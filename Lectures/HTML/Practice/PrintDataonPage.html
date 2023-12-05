@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1 id="first">test 1</h1>
+    <H1 id="second">test 2</H1>
+    
+    <button onclick="test()">Click me</button>
+    <hr/>
+    <input id="txt1"/>
+    <button>Get the text box data</button>
+    
+    <script>
+        function test(){
+            var i=10;  //number
+            var j=20.5;  //number 
+            var k=i+j; //number
+            //document.write(k);  
+            //document.getElementById("second").innerHTML=k;
+            console.log(document.getElementsByTagName("h1"));
+            document.getElementsByTagName("h1")[0].innerHTML=k;
+        }
+       /*
+      var name="Rajesh";  //string
+      var price=100;   //number
+      var amount=2.5;  //float 
+      debugger;
+     // alert(name);
+     document.write(name);   
+     document.write("<h1 style='color:red'>hi this simple heading<h1>");   
+        */
+
+
+        function getInputData(){
+
+        }
+ 
+        
+    </script>
+</body>
+</html>
