@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style>
+        .container{
+            width: 300px;
+            margin: 0 auto; 
+            margin-top: 100px;           
+        }
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            
+        }
+        input[type="submit"]{
+            background-color: green;
+            cursor: pointer;
+        }
+    </style>
+
+    
+</head>
+<body>
+        <div class="container">   
+            <form id="LoginForm">
+                <h3>Login Page</h3>
+                
+                <input type="text" id="userid"  required placeholder="Please enter user id"/>
+                <input type="password" id="password" required placeholder="Please enter password"/>
+                <input type="submit" value="Login"/>
+            </form>
+
+        </div>
+
+        <script>
+            document.getElementById("LoginForm").addEventListener("submit",function(e){
+                 //debugger;
+                e.preventDefault();
+
+                var userid=document.getElementById("userid").value;
+                var password=document.getElementById("password").value;
+                
+                if(userid=="admin"  && password=="admin123")
+                {
+                    alert("Login Sucess");
+                }
+                else
+                {
+                    alert("Login Fail");
+                }
+            });
+        </script>
+</body>
+</html>

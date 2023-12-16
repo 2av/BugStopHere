@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Driver Elegibility Checker</title>
+    <script>
+        function checkElegibilty(){
+            var age=document.getElementById("txtage").value;
+            var msg="";
+            var color="";
+            if(age>=18){
+                msg="You are elegibile for drive";
+                color="green";
+            }
+            else{
+               msg="You are not elegibile for drive";
+               color="red";
+            }
+            
+
+            document.getElementById("msg").innerText=msg;
+            document.getElementById("msg").style.color=color;
+        }
+    </script>
+</head>
+<body id="body">
+    <div class="container">
+        <h3>Driver Elegibility Checker</h3>
+        <span> Enter Your Age: </span>
+        <input type="text" id="txtage"/>
+        <input type="button" value="Check Elegibility" onclick="checkElegibilty()"/> 
+        <p id="msg">......</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Simple Calculator</title>
+    <script>
+        function Calculate(){
+            debugger;
+            var txt1,txt2,type,result;
+            txt1=document.getElementById("txt1").value;
+            txt2=document.getElementById("txt2").value;
+            type=document.getElementById("type").value;
+            console.log("txt1",txt1);
+            console.log("txt2",txt2);
+            console.log("type",type);
+
+            if(type=="+")
+            {
+                    result=parseInt(txt1) + parseInt(txt2);
+            }
+            if(type=="-")
+            {
+                    result=txt1-txt2;
+            }
+            if(type=="*")
+            {
+                    result=txt1*txt2;
+            }
+
+            if(type=="**")
+            {
+                    result=txt1**txt2;
+            }
+            if(type=="/")
+            {
+                    result=txt1/txt2;
+            }
+            if(type=="%")
+            {
+                    result=txt1%txt2;
+            }
+            document.getElementById("msg").innerText=result;
+
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Simple Calculator</h2>
+        <input type="text" id="txt1" />
+        <select id="type">
+                <option>+</option>
+                <option>-</option>
+                <option>*</option>
+                <option>**</option>
+                <option>/</option>
+                <option>%</option>
+
+        </select>
+        <input type="text" id="txt2"/>
+        <input type="button" value="Calculate" onclick="Calculate()"/>
+        <p id="msg"></p>
+    </div>
+</body>
+</html>
