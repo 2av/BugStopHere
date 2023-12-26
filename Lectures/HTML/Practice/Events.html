@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <script>
+        function evt(msg){
+                document.getElementById("m").innerText=msg;
+        }
+    </script>
+</head>
+<body>
+    <input type="text" 
+        onmouseover="evt('mouse over hai')"
+        onmouseout="evt('mouse out hua')"
+        onclick="evt('click hua')"
+        ondblclick="evt('double click found')"
+        onkeypress="evt('mai online hu....')"     
+    
+    /> 
+
+    <input type="text" 
+    onfocus="evt('Online')"
+    onblur="evt('Offline')"
+    onkeyup="evt('Typing....')"
+    >
+    <h2 id="m"></h2>
+</body>
+</html>

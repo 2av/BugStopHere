@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+        button{
+            width:100px;
+            height: 100px;
+            font-size: 25px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Score: <span id="score">0</span></h1>
+        <div class="btnarea">
+            <button id="btn1" onclick="AddScore('btn1',0)">0</button>
+            <button id="btn2" onclick="AddScore('btn2',1)">0</button>
+            <button id="btn3" onclick="AddScore('btn3',2)">0</button>
+            <button id="btn4" onclick="AddScore('btn4',3)">0</button>
+            <button id="btn5" onclick="AddScore('btn5',4)">0</button>
+            <button id="btn6" onclick="AddScore('btn6',5)">0</button>
+            <button id="btn7" onclick="AddScore('btn7',6)">0</button>
+            <button id="btn8" onclick="AddScore('btn8',7)">0</button>
+            <button id="btn9" onclick="AddScore('btn9',8)">0</button>
+        </div>
+    </div>
+    <script>
+        var Mainnum=[50,40,20,30,50,60,40,40,60];
+        var num=[50,40,20,30,50,60,40,40,60];
+        var Totalscore=0;
+        for(var i=1; i<=9; i++)
+        {
+         document.getElementById("btn"+i).innerText=num[i-1];
+        } 
+        setInterval(function(){
+            decreasenumber();
+        },1000);// 1 second
+
+        function AddScore(name,index){
+
+          var score= document.getElementById(name).innerText;
+          Totalscore= Totalscore + parseInt(score);
+          document.getElementById("score").innerText=Totalscore;
+          num[index]=Mainnum[index];
+        }
+        function decreasenumber(){
+            for(var i=1; i<=9; i++)
+            {
+                num[i-1]--;
+                document.getElementById("btn"+i).innerText=num[i-1];
+            } 
+        }
+</script>
+</body>
+</html>

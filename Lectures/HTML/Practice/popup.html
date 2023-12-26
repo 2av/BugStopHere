@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script>
+        function test_alert()
+        {
+            alert("hi this simple alert"); 
+            // it will display a popup with message
+            // button-> ok
+        }
+        function test_confirm(){
+           var a= confirm("Are you ready to submit"); 
+           console.log(a);
+            // it will display a popup with message
+            // button-> ok  -> true
+            // cancle->     -> false   
+
+
+            if(a==true)
+            {
+                alert('user clicked ok button');
+            }
+            else
+            {
+                alert('user clicked cancel button');
+            }
+        }
+
+
+        function test_prompt(){
+            var a= prompt("Please enter your name!"); 
+            console.log(a);
+            //message
+            //textbox
+            //ok button  -> text entered 
+            //cancle button -> null
+            document.getElementById("msg").innerText=a;
+        }
+
+        function varibaletest(){
+            //debugger    
+            /*var i="Rajesh";
+            i=10;
+            i=true;
+            if(i<20)
+            {
+                i=20;
+                document.getElementById("msg").innerText="innner"+i;
+            }
+
+            document.getElementById("msg").innerText +="  Outer "+i;
+            */
+
+            
+            var i=[10,20,30,40]; //array - object
+            var a={firstname:'Ratan',Lastname:'A', age:25, gender:'M'};// Objects
+            //document.getElementById("msg").innerText=i[0];
+            document.getElementById("msg").innerText=a.firstname +' '+ a.Lastname;
+
+           
+
+            //var i; //undefined
+            //document.getElementById("msg").innerText=i;
+        }
+
+        
+    </script>
+</head>
+<body>
+
+    <button onclick="test_alert()">Click me test_alert</button>
+    <button onclick="test_confirm()">Click me test_confirm</button>
+    <button onclick="test_prompt()">Click me test_prompt</button>
+    <button onclick="varibaletest()">var test</button>
+    <h1 id="msg"></h1>
+</body>
+</html>
