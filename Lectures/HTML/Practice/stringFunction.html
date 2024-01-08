@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    
+</head>
+<body>
+        <h2>
+            please type your message
+        </h2>
+        <textarea id="box" onkeyup="textCount()">
+
+        </textarea>
+        <h3>Count: <span id="typeCount"></span></h3>
+        <h3>Remaining Count: <span id="RemainingCount"></span> </h3>
+
+        <script>
+            var totalcount=500;
+            var typeCount=0;
+            document.getElementById("RemainingCount").innerText=totalcount;
+            document.getElementById("typeCount").innerText=typeCount;
+             function textCount(){
+                var data=document.getElementById("box").value.trim();
+                document.getElementById("typeCount").innerText=data.length;
+
+                var RemainingCount=totalcount-data.length; 
+                document.getElementById("RemainingCount").innerText=RemainingCount;
+             }
+         </script>
+</body>
+</html>

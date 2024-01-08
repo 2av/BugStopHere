@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+    <h1 id="msg"></h1>
+        <script>
+
+            (function(){
+                alert("hi")
+             })();
+
+            var i=10;  //int
+            var j=2.5; // float
+            var a="dfdfd";  /// string
+            var a=30;  //gloabl
+            function myFunction(){   // normal function with return
+                var a=20; 
+                var b=20;
+                var c=a+b;
+                return c;
+            }
+            function myFunction1(a,b){  // parameterized function with return
+                return a+b;
+            }
+             var car={
+                name:'XL',
+                modal:'XL6',
+                color:'white',
+                weight:'850kg',
+                price:'13LK'
+             };
+             var carArray=[{
+                name:'XL',
+                modal:'XL6',
+                color:'white',
+                weight:'850kg',
+                price:'13LK'
+             },
+             {
+                name:'XL1',
+                modal:'XL6',
+                color:'white',
+                weight:'850kg',
+                price:'15LK'
+             }
+            
+            
+            ];
+            
+             
+
+            document.getElementById("msg").innerText="my value is "+myFunction();
+
+        </script>
+
+</body>
+</html>

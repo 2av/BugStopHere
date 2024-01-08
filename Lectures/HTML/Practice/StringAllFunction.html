@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <script>
+        function setmessage(msg){
+            document.getElementById("msg").innerText=msg;
+        }
+        function fnLength(){
+            var data=document.getElementById("txtdata").value;
+            var msg="Length: "+data.length;
+            setmessage(msg);
+        }
+        function fnSlice(){
+            var name="Akash Ratan Satish Gopi";
+           // slice(start,end)
+           //var msg=name.slice(3,10);
+           msg=name.slice(-12,-6);
+           setmessage("Slice:"+msg);
+        }
+        function fnSubstring(){
+            var name="Akash Ratan Satish Gopi";
+           // substring(start,end)
+         
+           msg=name.substring(-10,5);
+           setmessage("Substring:"+msg);
+        }
+        function fnSubstr(){
+            var name="Akash Ratan Satish Gopi";
+           // substring(start,end)
+         
+           msg=name.substr(6,5);
+           setmessage("Substr:"+msg);
+        }
+
+        function fnReplace(){
+            var name="Welcome in the bugstopehe  free sesion lecture! bugstopehe";
+            //name=name.replace("bugstopehe","BUGSTOPHERE");
+            name=name.replaceAll("bugstopehe","BUGSTOPHERE");
+            setmessage("Replace:"+name);
+        }
+
+        function fnUppercase(){
+            var data=document.getElementById("txtdata").value;
+            setmessage(data.toUpperCase());
+        }
+        function fnLowercase(){
+            var data=document.getElementById("txtdata").value;
+            setmessage(data.toLowerCase());
+        }
+    </script>
+</head>
+<body>
+    <div class="conatiner">
+        <h4>Please enter yor text</h4>
+        <input type="text" id="txtdata"/><br/>
+        <button onclick="fnLength()">Length</button>
+        <button onclick="fnSlice()">Slice</button>
+        <button onclick="fnSubstring()">Substring</button>
+        <button onclick="fnSubstr()">Substr</button>
+        <button onclick="fnReplace()">Replace</button>
+        <button onclick="fnUppercase()">To Upper Case</button>
+        <button onclick="fnLowercase()">To Lower Case</button>
+        <h1 id="msg"></h1>
+    </div>
+
+</body>
+</html>

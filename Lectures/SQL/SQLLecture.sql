@@ -436,3 +436,291 @@ select * from Table1 cross join Table2
 
 select t1.id,name,salary from Table1 t1 join Table2 t2 on t1.id=t2.id
  
+ select * from Employee
+
+ select e.id,e.name,e.salary,m.managerid,m.name 
+ from Employee m join Employee e 
+ on m.id=e.managerid
+
+
+ ---UNION
+ -- column type , name same 
+ 
+select id from Table1
+ union all
+select id from Table2
+----
+/*table1, table2, table3
+city, city ,city
+
+Mumbai, Delhi, Jaipur
+*/
+
+
+create table un1
+(
+ city nvarchar(50)
+)
+
+
+create table un2
+(
+ city nvarchar(50)
+)
+
+
+create table un3
+(
+ city nvarchar(50)
+)
+
+
+select * from un1
+select * from un2
+select * from un3
+insert into un1 values('Mumbai'),('Delhi'),('Jaipur')
+insert into un2 values('Mumbai'),('Delhi'),('Jaipur'),('Varanasi')
+insert into un3 values('Mumbai'),('Delhi'),('Jaipur'),('Jaunpur')
+
+select * from un1
+union
+select * from un2
+union
+select * from un3
+
+-----------
+select * into std1 from student
+
+select * from student
+select * from std1
+select * from std2
+select * from std3
+
+
+select sid,name,age into std2 from student
+select sid,name,age into std3 from student where age>20
+
+
+insert into std3(name,age) values('test',12)
+insert into std3(name,age) select name,age from student
+
+/*
+Date: 02/01/2024 
+Time: 9:00PM IST
+🔥Day 10- SQL Lecture🔥
+------------------------------
+SQL VIEW
+- Create View
+- Update View
+- Drop View
+- Rename View
+*/
+
+Create view  vwemp as select * from Employee
+select * from vwemp
+
+insert into Employee(id,name,salary,managerid) values(7,'Bharat',2500,4)
+
+Create view  vwempdetails as select id,name,managerid from Employee
+select * from vwempdetails
+-------------------------
+
+
+create table customer
+(
+id int identity(1,1),
+name varchar(100),
+Balance decimal,
+branch varchar(50),
+ReisterDate datetime default getdate()
+
+)
+
+
+select * from customer
+insert into customer(name,Balance,branch) values
+('Gopi',250000,'Varansi'),
+('Bharat',300000,'Mumbai'),
+('Ratan',250000,'Varansi'),
+('Aakash',150000,'Delhi'),
+('Akhilesh',250000,'Azamgahh')
+
+
+
+create view Manager1 as select * from customer where branch in('Mumbai','Delhi')
+create view Manager2 as select * from customer where branch in('Varansi','Azamgahh')
+
+
+select * from Manager1
+select * from Manager3
+
+alter view Manager2 as select * from customer where branch in('Varansi','Azamgahh','delhi')
+alter view Manager2 as select * from customer where branch in('delhi')
+
+drop view Manager2
+
+sp_rename 'Manager2' ,'Manager3'
+
+
+-----------
+create view combinedata as
+select t1.id,t1.name,t2.salary from Table1 t1 join Table2 t2 on t1.id=t2.id
+ 
+
+ select * from combinedata
+ ------------------------
+
+ create table tblEmployee(
+ EmployeeID int identity,
+ FirstName varchar(50),
+ LastName varchar(50),
+ Department varchar(50),
+ Salary decimal
+ )
+
+
+ insert into tblEmployee(FirstName,LastName,Department,Salary) 
+ values('John','Doe','Sales',60000),
+ ('Jane','Smith','HR',55000),
+ ('Alice','Johnson','Sales',62000),
+ ('Bob','Brown','IT',70000),
+ ('Emily','Davis','Marketing',60000)
+
+--1. Retrieve all columns for all employees.
+  select * from tblEmployee
+
+--2. Select the first names of employees working in the Sales department.
+ select firstname from tblEmployee where Department='Sales'
+
+--3. List the employees who earn a salary greater than $55,000.
+select * from tblEmployee where Salary>55000
+
+--4. Display the total number of employees in each department.
+ select   count(1) from tblEmployee  
+ select Department, count(1) 'Total Number of Employee' from tblEmployee group by Department
+
+--5. Find the highest salary among all employees.
+select max(salary) from tblEmployee
+select * from tblEmployee where Salary in(select max(salary) from tblEmployee)
+
+--6. Get the average salary of employees.
+select avg(salary) 'Average salary' from tblEmployee
+
+--7. Show the employees sorted by their salary in descending order.
+select * from tblEmployee order by Salary desc
+select * from tblEmployee order by EmployeeID desc
+
+--8. Count the number of distinct departments in the table.
+select  count(distinct department) from tblEmployee
+select distinct department from tblEmployee
+
+--9. Retrieve the top 3 highest-earning employees.
+select top 3 * from tblEmployee order by Salary desc
+
+
+--10. Find the second-highest salary in the table.
+ select max(Salary) from tblEmployee
+ where Salary <(select max(salary) from tblEmployee)
+
+ --------------------------------
+ /*
+ Date: 04/01/2024 
+Time: 9:00PM IST
+🔥Day 11- SQL Lecture🔥
+------------------------------
+All commands about database
+
+- CREATE DATABASE : Creates a new database.
+  ex: CREATE DATABASE database_name;
+   
+
+- USE: Switches to a specific database.
+  ex: USE database_name;
+   
+ 
+- DROP DATABASE: Deletes an existing database.
+  ex: DROP DATABASE database_name;
+   
+
+- ALTER DATABASE: chaning the database properties
+	 Change Database Name:
+		SSMS: Right-click on the database -> Select "Rename" -> Provide new name.
+		T-SQL: ALTER DATABASE Bugstophere MODIFY NAME = Bugstophere1;
+ 
+ 
+8. EXEC sp_helpdb: Shows information about all databases.
+	ex:
+	EXEC sp_helpdb;
+	EXEC sp_helpdb dbname;
+  
+
+9. EXEC sp_helpfile: Provides information about database files.
+   ex: EXEC sp_helpfile;     
+ 
+ */
+ 
+
+
+ create database Test
+
+ use Test
+
+ drop database test
+
+ ALter database TEst123 modify Name=TESTabc
+
+ exec sp_helpdb
+ exec sp_helpdb BugStopHere_Lecture
+
+ EXEC sp_helpfile
+---------------------------------------------------
+
+
+-- How to declare a variable
+-- syntax: declare @varibalename datatype
+
+declare @i int=20
+declare @j int 
+declare @total int
+set @i=10
+set @j=20
+
+set @total=@i+@j
+select @i,@j,@total
+
+------------------------
+
+select * from Employee
+
+select len('Ratan')
+select id,name, len(name) 'length of name' from Employee
+
+select charindex('a','Ratan - Happy Birthday')
+select charindex('a','Ratan - Happy Birthday',5)
+
+select id,name,CHARINDEX('a',name) from Employee
+
+select left('Bugstophere',5)
+select right('Bugstophere',5)
+
+select id,name,left(name,3) from Employee
+select id,name,left(name,3)+'...' from Employee
+
+select first_name+last_name from employees
+select CONCAT('Hi ',first_name,' >> ',last_name) as 'Full Name' from employees
+
+select SUBSTRING('Akash',2,2)
+select name, SUBSTRING(name,2,3) from Employee
+
+select replace('Replaces occurrences of a substring within a string','string','test')
+
+select name,REPLACE(name,'a','b') from Employee
+
+select name,upper(name),lower(name) from Employee
+
+select ltrim('    test    ')
+
+
+select len(ltrim('    test  msmms   '))
+select ltrim(rtrim('   test   '))
+ 
