@@ -519,8 +519,8 @@ SQL VIEW
 Create view  vwemp as select * from Employee
 select * from vwemp
 
-insert into Employee(id,name,salary,managerid) values(7,'Bharat',2500,4)
-
+insert into Employee(id,name,salary,managerid) values(8,'Bharat',2500.235,4)
+select * from employee
 Create view  vwempdetails as select id,name,managerid from Employee
 select * from vwempdetails
 -------------------------
@@ -723,4 +723,167 @@ select ltrim('    test    ')
 
 select len(ltrim('    test  msmms   '))
 select ltrim(rtrim('   test   '))
- 
+ -------------------------------------------------------
+
+
+ --Nuumber function
+
+ select abs(10)
+ select abs(-10)
+
+ select ROUND(2.32616,2)
+  select ROUND(2.32616,3)
+   select ROUND(2.32616,4)
+    select ROUND(2.32616,0)
+
+
+select CEILING(2.0)
+select CEILING(2.1)
+select CEILING(2.2)
+select CEILING(2.5)
+select CEILING(2.9)
+
+
+select floor(2.0)
+select floor(2.1)
+select floor(2.2)
+select floor(2.5)
+select floor(2.9)
+
+select power(2,2)
+
+select power(2,3)
+
+select power(10,3)
+
+select sqrt(25)
+
+select sqrt(100)
+
+select RAND()
+
+
+select id,name,salary,sqrt(salary) from Employee
+select sum(salary),avg(salary),min(salary),max(salary),count(salary) from employee
+
+-----------------------------------------
+
+--Date and Time Functions:
+
+select getdate()
+
+select * from Manager
+
+select DATEADD(MM,2,GETDATE())
+select DATEADD(DD,2,GETDATE())
+select DATEADD(YY,2,GETDATE())
+
+select DATEADD(MM,-2,GETDATE())
+select DATEADD(DD,-2,GETDATE())
+select DATEADD(YY,-2,GETDATE())
+
+select mname,CreateDate, dateadd(yy,10,CreateDate) from Manager
+
+select mname,CreateDate, datediff(yy,CreateDate,getdate()) from Manager 
+/*
+Date: 10/01/2024 
+Time: 9:00PM IST
+🔥Day 15- SQL Lecture🔥
+------------------------------
+SQL Function
+
+===>> Date and Time Functions:
+SYSDATETIME – returns the date and time of the machine the SQL Server is running on
+SYSDATETIMEOFFSET – returns the date and time of the machine the SQL Server is running on 
+plus the offset from UTC
+SYSUTCDATETIME - returns the date and time of the machine the SQL Server is running on as UTC
+-- higher precision functions 
+*/
+SELECT SYSDATETIME()       AS 'DateAndTime';        -- return datetime2(7)       
+SELECT SYSDATETIMEOFFSET() AS 'DateAndTime+Offset'; -- datetimeoffset(7)
+SELECT SYSUTCDATETIME()    AS 'DateAndTimeInUtc';   -- returns datetime2(7)
+---------------------------------------------------------------------------------
+
+--CURRENT_TIMESTAMP - returns the date and time of the machine the SQL Server is running on
+--GETDATE() - returns the date and time of the machine the SQL Server is running on
+---GETUTCDATE() - returns the date and time of the machine the SQL Server is running on as UTC
+
+-- lesser precision functions - returns datetime
+SELECT CURRENT_TIMESTAMP AS 'DateAndTime'; -- note: no parentheses   
+SELECT GETDATE()         AS 'DateAndTime';    
+SELECT GETUTCDATE()      AS 'DateAndTimeUtc'; 
+---------------------------------------------------------------------------------
+
+--DATENAME – Returns a string corresponding to the datepart specified for the given date 
+
+-- date and time parts - returns nvarchar 
+SELECT DATENAME(YEAR, GETDATE())        AS 'Year';        
+SELECT DATENAME(QUARTER, GETDATE())     AS 'Quarter';     
+SELECT DATENAME(MONTH, GETDATE())       AS 'Month Name';       
+SELECT DATENAME(DAYOFYEAR, GETDATE())   AS 'DayOfYear';   
+SELECT DATENAME(DAY, GETDATE())         AS 'Day';         
+SELECT DATENAME(WEEK, GETDATE())        AS 'Week';        
+SELECT DATENAME(WEEKDAY, GETDATE())     AS 'Day of the Week';     
+SELECT DATENAME(HOUR, GETDATE())        AS 'Hour';        
+SELECT DATENAME(MINUTE, GETDATE())      AS 'Minute';      
+SELECT DATENAME(SECOND, GETDATE())      AS 'Second';      
+SELECT DATENAME(MILLISECOND, GETDATE()) AS 'MilliSecond'; 
+SELECT DATENAME(MICROSECOND, GETDATE()) AS 'MicroSecond'; 
+SELECT DATENAME(NANOSECOND, GETDATE())  AS 'NanoSecond';  
+SELECT DATENAME(ISO_WEEK, GETDATE())    AS 'Week';      
+-------------------------------------------------------------------
+
+--DATEPART – returns an integer corresponding to the datepart specified
+
+-- date and time parts - returns int
+SELECT DATEPART(YEAR, GETDATE())        AS 'Year';        
+SELECT DATEPART(QUARTER, GETDATE())     AS 'Quarter';     
+SELECT DATEPART(MONTH, GETDATE())       AS 'Month';       
+SELECT DATEPART(DAYOFYEAR, GETDATE())   AS 'DayOfYear';   
+SELECT DATEPART(DAY, GETDATE())         AS 'Day';         
+SELECT DATEPART(WEEK, GETDATE())        AS 'Week';        
+SELECT DATEPART(WEEKDAY, GETDATE())     AS 'WeekDay';     
+SELECT DATEPART(HOUR, GETDATE())        AS 'Hour';        
+SELECT DATEPART(MINUTE, GETDATE())      AS 'Minute';      
+SELECT DATEPART(SECOND, GETDATE())      AS 'Second';      
+SELECT DATEPART(MILLISECOND, GETDATE()) AS 'MilliSecond'; 
+SELECT DATEPART(MICROSECOND, GETDATE()) AS 'MicroSecond'; 
+SELECT DATEPART(NANOSECOND, GETDATE())  AS 'NanoSecond';  
+SELECT DATEPART(ISO_WEEK, GETDATE())    AS 'Week';   
+
+-------------------------------------------------------------------
+--DAY – returns an integer corresponding to the day specified
+--MONTH– returns an integer corresponding to the month specified
+--YEAR– returns an integer corresponding to the year specified
+
+SELECT DAY(GETDATE())   AS 'Day';                            
+SELECT MONTH(GETDATE()) AS 'Month';                       
+SELECT YEAR(GETDATE())  AS 'Year';
+
+select * from Manager
+select month(CreateDate) from manager
+-------------------------------------------------------------------
+--DATEDIFF - returns the number of date or time datepart boundaries crossed between 
+--specified dates as an int
+SELECT DATEDIFF(Second, 2019-31-01, 2019-01-01)      AS 'DateDif'    -- returns int
+
+--------------------------------------------------------------------
+--CAST / CONVERT: Converts a value from one data type to another.
+	SELECT CAST('2024-01-09' AS DATE) AS ConvertedDate;
+	SELECT CONVERT(VARCHAR(20), GETDATE(), 100) AS ConvertedDateTime;
+	SELECT CONVERT(VARCHAR(20), GETDATE(), 101) AS ConvertedDateTime;
+	SELECT CONVERT(VARCHAR(20), GETDATE(), 102) AS ConvertedDateTime;
+	SELECT CONVERT(VARCHAR(20), GETDATE(), 103) AS ConvertedDateTime;
+
+--PARSE: Converts a string to a specified data type.
+	SELECT PARSE('2024-01-09' AS DATE) AS ParsedDate;
+
+
+/*
+===>> System Functions:
+1. @@ROWCOUNT: Returns the number of rows affected by the last statement.
+2. @@IDENTITY / SCOPE_IDENTITY: Returns the last identity value generated in a table.
+ */
+
+
+
