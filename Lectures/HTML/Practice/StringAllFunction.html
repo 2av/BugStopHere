@@ -49,6 +49,36 @@
             var data=document.getElementById("txtdata").value;
             setmessage(data.toLowerCase());
         }
+
+        function fnConcat(){
+            var first="Akash";
+            var second="Ratan";
+            var third="Akhilesh";
+            //var Allname=first+","+second+","+third;
+            var Allname=first.concat("|",second,"|",third,"---");
+            //Allname=Allname.concat(first,"|",second,"|",third);
+            setmessage(Allname);
+        }
+
+        function fnTrim(){
+            var data=document.getElementById("txtdata").value.trim();
+            setmessage(data.length);
+        }
+
+        function fnPad(){
+            var a="123";
+            setmessage(a.padStart(5,"0"));
+        }
+        function fnCharAt(){
+            var data=document.getElementById("txtdata").value;
+            //setmessage(data.charAt(0));
+            setmessage(data.charCodeAt(0));
+        }
+        function fnSplit(){
+            var data=document.getElementById("txtdata").value;
+            //setmessage(data.charAt(0));
+            setmessage(data.split(""));
+        }
     </script>
 </head>
 <body>
@@ -62,6 +92,11 @@
         <button onclick="fnReplace()">Replace</button>
         <button onclick="fnUppercase()">To Upper Case</button>
         <button onclick="fnLowercase()">To Lower Case</button>
+        <button onclick="fnConcat()">Conact</button>
+        <button onclick="fnTrim()">trim</button>
+        <button onclick="fnPad()">padStart</button>
+        <button onclick="fnCharAt()">Char At</button>
+        <button onclick="fnSplit()">Split</button>
         <h1 id="msg"></h1>
     </div>
 

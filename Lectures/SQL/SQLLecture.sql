@@ -886,4 +886,396 @@ SELECT DATEDIFF(Second, 2019-31-01, 2019-01-01)      AS 'DateDif'    -- returns 
  */
 
 
+ 
 
+create table test2
+(
+id int
+)
+ 
+ insert into test2 values(1),(1),(1)
+ select @@rowcount
+
+
+ select * from test2
+
+ delete from test2
+ select @@rowcount
+
+
+ create table test3
+(
+id int identity,
+name nvarchar(50)
+)
+
+
+insert into test3(name) values('a')
+select @@IDENTITY
+select * from test3
+-------------------------------------------------------
+/*
+23-Jan-2024
+Time:9PM IST
+TOPIC: Variable and Store Procedure
+*/
+
+int =10
+char a,b,c
+
+--Syntax Declare @name int
+
+declare @a int=10
+declare @b int=20
+declare @c int
+
+set @c =@a+@b
+
+select @c
+
+select @c=salary from Employee where id=1
+
+select @c
+----------------------------------
+
+
+select * from sys.tables
+select * from sys.databases
+select * from sys.procedures
+ 
+select * from employees where department='HR'
+select * from employees where department='IT'
+select * from employees where department='Finance'
+
+create procedure pr_allEmployee
+as
+begin
+	select * from Employee
+end
+
+create procedure pr_allEmployeeManager
+as
+begin
+	select * from Employee
+	select * from manager
+end
+
+exec pr_allEmployee
+exec pr_allEmployeeManager
+--------------------------------
+alter procedure pr_allEmployee
+@id int=null
+as
+begin
+	if @id is null
+	begin
+			select * from Employee
+	end
+	else
+	begin
+		select * from Employee where id=2
+	end
+end
+
+exec pr_allEmployee 1
+exec pr_allEmployee 2
+exec pr_allEmployee 3
+execute pr_allEmployee 4
+---------------------------------------
+
+select * from sys.procedures
+select * from sys.tables
+
+
+
+
+
+
+
+
+
+
+
+-- Create Products table
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName NVARCHAR(255) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    StockQuantity INT NOT NULL
+);
+
+select * from Products
+
+-- Insert 10 records into the Products table
+INSERT INTO Products (ProductID, ProductName, Price, StockQuantity)
+VALUES
+    (1, 'Laptop', 999.99, 50),
+    (2, 'Smartphone', 299.99, 100),
+    (3, 'Tablet', 199.99, 30),
+    (4, 'Headphones', 49.99, 80),
+    (5, 'Printer', 129.99, 25),
+    (6, 'External Hard Drive', 79.99, 60),
+    (7, 'Digital Camera', 199.99, 40),
+    (8, 'Wireless Mouse', 19.99, 120),
+    (9, 'Gaming Console', 299.99, 15),
+    (10, 'Smart TV', 599.99, 10);
+-----------------------------------------------------
+
+
+-->All records
+create procedure sp_GetAllProduct
+as
+begin
+	select * from Products
+end
+
+exec sp_GetAllProduct
+
+-->> get by id
+
+create procedure sp_GetProductById
+@ProductID int
+as
+begin
+	select * from Products where ProductID=@ProductID
+end
+
+exec sp_GetProductById 1
+exec sp_GetProductById 3
+exec sp_GetProductById 12
+
+--> insert procedure
+alter procedure sp_AddProducts
+@ProductID INT,
+@ProductName NVARCHAR(255),
+@Price DECIMAL(10, 2),
+@StockQuantity INT
+as
+begin
+	 if  exists (select 1 from products where ProductId=@ProductID)
+	 begin
+		print 'Product id already exists'
+	 end
+	 else
+	 begin
+		insert into Products values(@ProductID,@ProductName,@Price,@StockQuantity)
+	 end
+
+end
+
+exec sp_AddProducts 12,'Adoptor',25.00,20
+-------------------------------------------------
+
+
+
+create procedure sp_UpdateProducts
+@ProductID INT,
+@ProductName NVARCHAR(255),
+@Price DECIMAL(10, 2),
+@StockQuantity INT
+as
+begin
+	 if  exists (select 1 from products where ProductId=@ProductID)
+	 begin
+			update products
+			set ProductName=@ProductName, Price=@Price, StockQuantity=@StockQuantity
+			where ProductId=@ProductID
+	 end
+	 else
+	 begin
+		print 'Product id dose not exists'
+	 end
+
+end
+
+exec sp_GetProductById 1
+sp_UpdateProducts 1,'Dell Laptop',1500,100
+
+-->Delete
+
+
+create procedure sp_DeleteProducts
+@ProductID INT
+as
+begin
+	 if  exists (select 1 from products where ProductId=@ProductID)
+	 begin
+			Delete products where ProductId=@ProductID
+	 end
+	 else
+	 begin
+		print 'Product id dose not exists'
+	 end
+
+end
+
+sp_DeleteProducts 12
+--------------------------------------------------------------
+
+
+select * from sys.procedures
+
+alter procedure sp_Products
+@Task nvarchar(50)=null,
+@ProductID INT =null,
+@ProductName NVARCHAR(255)=null,
+@Price DECIMAL(10, 2)=null,
+@StockQuantity INT=null
+as
+begin
+		if @Task='SELECT'
+		begin
+			select * from Products
+		end
+
+		if @Task='SELECTBYID' and @ProductID>0
+		begin
+			select * from Products where ProductID=@ProductID
+		end
+
+		if @Task='INSERT' 
+		begin
+			if @ProductID is null
+			begin
+				print 'Please pass product id'
+			end
+			else if @ProductName is null
+			begin
+				print 'Please pass Product Name'
+			end
+			else if @Price is null
+			begin
+				print 'Please pass PPrice'
+			end
+			else if @StockQuantity is null
+			begin
+				print 'Please pass Stock Quantity'
+			end
+			else
+			begin
+				insert into Products values(@ProductID,@ProductName,@Price,@StockQuantity)
+			end
+		end
+
+		if @Task='UPDATE'
+		begin
+				if @ProductID is null
+				begin
+					print 'Please pass product id'
+				end
+				else
+				begin
+					update Products
+					set ProductName=@ProductName,
+					Price=@Price,StockQuantity=@StockQuantity
+					where ProductID=@ProductID
+				end
+		end
+
+		if @Task='DELETE'
+		begin
+				if @ProductID is null
+				begin
+					print 'Please pass product id'
+				end
+				else
+				begin
+					if exists (select 1 from Products where ProductID=@ProductID)
+					begin
+						delete from Products where ProductID=@ProductID
+						print 'Your record deleted successfully'
+					end
+					else
+					begin
+						print 'This record is alredy deleted'
+					end
+				end
+		end
+end
+--------------
+exec sp_Products 'SELECT'
+exec sp_Products @Task='SELECT'
+exec sp_Products @Task='SELECTBYID',@ProductID=1
+
+exec sp_Products @Task='INSERT',@ProductID=12 ,@ProductName='Test',@Price=25,@StockQuantity=100
+exec sp_Products @Task='INSERT' ,@ProductID=14,@ProductName='Test2',@Price=25,@StockQuantity=100
+
+exec sp_Products @Task='UPDATE' ,@ProductID=14,@ProductName='Test Data',@Price=30,@StockQuantity=500
+
+exec sp_Products @Task ='DELETE' ,@ProductID=12
+
+--------------------------------------------------------------
+
+
+
+/*
+29-01-2024
+*/
+
+
+begin try
+	select 10/0
+	print 'try block'
+
+end try
+
+begin catch
+	print 'catch block'
+
+	select ERROR_LINE(),
+		ERROR_MESSAGE(),
+		ERROR_NUMBER(),
+		ERROR_SEVERITY(),
+		ERROR_PROCEDURE()
+
+end catch
+
+
+
+Create table ErrorList
+(
+id int identity,
+ErrorLine int,
+ErrorMessage nvarchar(max),
+ErrorNumber int,
+ErrorSeverity int,
+ErrorProcedure nvarchar(max),
+CreatedDate datetime default(getdate())
+
+)
+select * from ErrorList
+
+--exec sp_Products_test @ProductID=12 ,@ProductName='Test',@Price=25,@StockQuantity=100
+
+alter procedure sp_Products_test
+@ProductID INT =null,
+@ProductName NVARCHAR(255)=null,
+@Price DECIMAL(10, 2)=null,
+@StockQuantity INT=null
+as
+begin
+		begin try
+		insert into Products values(@ProductID,@ProductName,@Price,@StockQuantity)
+	   end try
+
+	   begin catch
+				declare @ErrorLine int,
+				@ErrorMessage nvarchar(max),
+				@ErrorNumber int,
+				@ErrorSeverity int,
+				@ErrorProcedure nvarchar(max)
+
+
+				select @ErrorLine=ERROR_LINE(),
+				@ErrorMessage=ERROR_MESSAGE(),
+				@ErrorNumber=ERROR_NUMBER(),
+				@ErrorSeverity=ERROR_SEVERITY(),
+				@ErrorProcedure=ERROR_PROCEDURE()
+
+				insert into ErrorList(ErrorLine,ErrorMessage,ErrorNumber,ErrorSeverity,ErrorProcedure)
+				values(@ErrorLine,@ErrorMessage,@ErrorNumber,@ErrorSeverity,@ErrorProcedure)
+	   end catch	
+		 
+end
+
+ 

@@ -2,13 +2,27 @@
 // break -> stop
 // continue-> skip
 #include<stdio.h>
+void abc(){
+
+	printf("abc ");
+}
+int test(){
+
+	printf("hi this is test function");
+	abc();
+}
+int sum(int i,int j)
+{
+	sum(i,j);
+	return i+j;
+}
+ 
+
 void main(){
 
-	for(int i=1;  i<=10; i++)
-	{
-		
-		printf("%d \n",i);
-		break;
-	}
+	 
+	printf("%d  \n",sum(10,20));
+	printf("%d  \n",sum(10,30));
+	printf("%d  \n",sum(20,20));
 	
 }
