@@ -1135,26 +1135,10 @@ begin
 
 		if @Task='INSERT' 
 		begin
-			if @ProductID is null
-			begin
-				print 'Please pass product id'
-			end
-			else if @ProductName is null
-			begin
-				print 'Please pass Product Name'
-			end
-			else if @Price is null
-			begin
-				print 'Please pass PPrice'
-			end
-			else if @StockQuantity is null
-			begin
-				print 'Please pass Stock Quantity'
-			end
-			else
-			begin
-				insert into Products values(@ProductID,@ProductName,@Price,@StockQuantity)
-			end
+			 exec sp_Products_insert @ProductID=@ProductID,
+			 @ProductName=@ProductName,
+			 @Price=@Price,
+			 @StockQuantity=@StockQuantity
 		end
 
 		if @Task='UPDATE'
@@ -1192,12 +1176,52 @@ begin
 				end
 		end
 end
+
+
+
+
+create procedure sp_Products_insert
+@ProductID INT =null,
+@ProductName NVARCHAR(255)=null,
+@Price DECIMAL(10, 2)=null,
+@StockQuantity INT=null
+as
+begin
+		 
+			if @ProductID is null
+			begin
+				print 'Please pass product id'
+			end
+			else if @ProductName is null
+			begin
+				print 'Please pass Product Name'
+			end
+			else if @Price is null
+			begin
+				print 'Please pass Price'
+			end
+			else if @StockQuantity is null
+			begin
+				print 'Please pass Stock Quantity'
+			end
+			else
+			begin
+				insert into Products values(@ProductID,@ProductName,@Price,@StockQuantity)
+			end
+		 
+end
+
+
+
+
+
+
 --------------
 exec sp_Products 'SELECT'
 exec sp_Products @Task='SELECT'
-exec sp_Products @Task='SELECTBYID',@ProductID=1
+exec sp_Products @Task='SELECTBYID',@ProductID=13
 
-exec sp_Products @Task='INSERT',@ProductID=12 ,@ProductName='Test',@Price=25,@StockQuantity=100
+exec sp_Products @Task='INSERT',@ProductID=14 ,@ProductName='Test_nested procedure',@Price=25,@StockQuantity=100
 exec sp_Products @Task='INSERT' ,@ProductID=14,@ProductName='Test2',@Price=25,@StockQuantity=100
 
 exec sp_Products @Task='UPDATE' ,@ProductID=14,@ProductName='Test Data',@Price=30,@StockQuantity=500
@@ -1277,5 +1301,90 @@ begin
 	   end catch	
 		 
 end
+
+ 
+
+ begin try
+--select * from Products
+select 10/0
+end try
+
+begin catch
+	select     
+				ERROR_LINE(),
+				ERROR_MESSAGE(),
+				ERROR_NUMBER(),
+				ERROR_SEVERITY(),
+				ERROR_PROCEDURE()
+
+end catch
+
+-----------------------
+--30-01-2024
+alter procedure sp_test
+@name nvarchar(50),  -- input parameter
+@lastid int=0 output  -- output pramater (return type varibale)
+as
+begin
+	 insert into OutputTest(name) values(@name)
+	 select @lastid=@@IDENTITY
+end
+
+
+
+
+declare @v int
+exec sp_test @name='Shoeb',@lastid=@v output
+print @v
+
+
+-------------
+
+ create table OutputTest
+ (
+ id int identity,
+ name nvarchar(50)
+ )
+
+ insert into OutputTest(name) values('Raj')
+
+ select * from OutputTest
+
+
+
+
+
+--drop procedure sp_Products_insert
+create procedure sp_Products_insert  
+@ProductID INT =null,  
+@ProductName NVARCHAR(255)=null,  
+@Price DECIMAL(10, 2)=null,  
+@StockQuantity INT=null  
+as  
+begin  
+     
+   if @ProductID is null  
+   begin  
+    print 'Please pass product id'  
+   end  
+   else if @ProductName is null  
+   begin  
+    print 'Please pass Product Name'  
+   end  
+   else if @Price is null  
+   begin  
+    print 'Please pass Price'  
+   end  
+   else if @StockQuantity is null  
+   begin  
+    print 'Please pass Stock Quantity'  
+   end  
+   else  
+   begin  
+    insert into Products values(@ProductID,@ProductName,@Price,@StockQuantity)  
+   end  
+     
+end
+
 
  
