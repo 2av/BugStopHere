@@ -1386,5 +1386,81 @@ begin
      
 end
 
+------
+--Syntax
+/*
+WHILE condition
+begin
+	-- statement
+end
 
+*/
+
+
+declare @counter int
+set @counter=0
+while @counter<=5
+begin
+	set @counter=@counter+1
+
+	if @counter=2
+	begin
+		break
+	end
+
+	print 'text '+convert(varchar, @counter)
+	
+end
+
+-- continue ->skip
+-- break   ->stop
+
+ ---Print the table of 2
+ --Syntax
+/*
+WHILE condition
+begin
+	-- statement
+end
+
+
+2
+4
+8
+6
+10
+
+*/
+
+
+declare @counter int
+set @counter=1
+while @counter<=20
+begin
+	 if @counter%2=1
+	 begin
+		set @counter=@counter+1
+		continue
+	 end
+	 else
+	 begin
+		print @counter
+		set @counter=@counter+1
+	 end
+end
+
+-- continue ->skip
+-- break   ->stop
+
+ declare @counter int
+set @counter=1
+while @counter<=20
+begin
+	  
+	  set @counter=@counter+1
+	  if @counter%2=0
+	  begin
+		print @counter
+	  end
+end
  
