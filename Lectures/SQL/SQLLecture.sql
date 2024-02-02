@@ -1464,3 +1464,45 @@ begin
 	  end
 end
  
+----
+/*
+02-02-2024
+SQL PARTITION BY Clause overview
+*/
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    OrderDate DATE,
+    CustomerName VARCHAR(255),
+    CustomerCity VARCHAR(255),
+    OrderAmount DECIMAL(10, 2)
+)
+
+-- Insert random data into Orders table
+INSERT INTO Orders (OrderID, OrderDate, CustomerName, CustomerCity, OrderAmount)
+VALUES 
+    (1, '2024-01-01', 'John Doe', 'New York', 100.50),
+    (2, '2024-01-02', 'Jane Smith', 'Los Angeles', 75.25),
+    (3, '2024-01-03', 'Bob Johnson', 'Chicago', 150.00),
+    (4, '2024-01-04', 'Alice Brown', 'Houston', 200.75),
+    (5, '2024-01-05', 'Charlie Davis', 'Phoenix', 50.30),
+    (6, '2024-01-06', 'Eva Wilson', 'New York', 120.90),
+    (7, '2024-01-07', 'Frank White', 'San Antonio', 180.60),
+    (8, '2024-01-08', 'Grace Miller', 'San Diego', 90.75),
+    (9, '2024-01-09', 'Henry Taylor', 'Dallas', 130.40),
+    (10, '2024-01-10', 'Ivy Martinez', 'San Jose', 160.20),
+    (11, '2024-01-11', 'Jack Robinson', 'Chicago', 110.30),
+    (12, '2024-01-12', 'Kelly Garcia', 'New York', 70.80),
+    (13, '2024-01-13', 'Leo Rodriguez', 'Indianapolis', 85.45),
+    (14, '2024-01-14', 'Mia Lee', 'San Francisco', 140.25),
+    (15, '2024-01-15', 'Noah Clark', 'Chicago', 95.70),
+    (16, '2024-01-16', 'Olivia Hall', 'Fort Worth', 120.15),
+    (17, '2024-01-17', 'Peter Turner', 'Charlotte', 175.50),
+    (18, '2024-01-18', 'Raj', 'India', 60.35),
+    (19, '2024-01-19', 'Rachel Baker', 'El Paso', 200.00),
+    (20, '2024-01-20', 'Samuel Cooper', 'New York', 110.90),
+    (21, '2024-01-21', 'Tina Sanchez', 'Baltimore', 80.20),
+    (22, '2024-01-22', 'Aakash', 'India', 130.75),
+    (23, '2024-01-23', 'Victoria Foster', 'Seattle', 160.50),
+    (24, '2024-01-24', 'Walter Reed', 'Denver', 75.80),
+    (25, '2024-01-25', 'Xander Taylor', 'Nashville', 140.00);
+
