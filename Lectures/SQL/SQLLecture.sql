@@ -1506,3 +1506,34 @@ VALUES
     (24, '2024-01-24', 'Walter Reed', 'Denver', 75.80),
     (25, '2024-01-25', 'Xander Taylor', 'Nashville', 140.00);
 
+	
+	select * from Orders
+	select CustomerCity,customerName,
+	COUNT(OrderAmount) ,
+	min(OrderAmount) 'min Order Amount',
+	sum(OrderAmount) 'Total Order Amount'
+	from Orders
+	 
+
+
+	select CustomerName,
+	CustomerCity,
+	OrderAmount,
+	Row_Number() Over(
+	Partition by CustomerCity 
+	Order By OrderAmount desc
+	) as 'Row_Number',
+	count(OrderAmount) over(Partition by CustomerCity)'count',
+	SUM(OrderAmount) over(Partition by CustomerCity)  'Sum',
+	min(OrderAmount) over(Partition by CustomerCity)  'min',
+	max(OrderAmount) over(Partition by CustomerCity)  'max',
+	sum(OrderAmount) Over(
+	Partition by CustomerCity
+	Order By OrderAmount desc
+	ROWS BETWEEN CURRENT ROW AND 1 Following
+	)
+	from Orders
+	
+	
+	 
+	 
