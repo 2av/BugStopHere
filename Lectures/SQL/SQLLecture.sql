@@ -1534,6 +1534,99 @@ VALUES
 	)
 	from Orders
 	
-	
+-------------------------------------------------
+/*
+Date: 06/02/2024 
+Time: 9:30 PM IST
+🔥Day 25- Advance SQL Lecture🔥
+------------------------------
+Today Topic: Different ways to SQL delete duplicate rows from a SQL Table 
+ 
+ We have 3 way to delete the duplicate rows
+	1. SQL delete duplicate Rows using Group By and having clause
+	2. SQL delete duplicate Rows using Common Table Expressions (CTE)
+	3. RANK function to SQL delete duplicate rows
+ 
+*/
+drop table Employee_DR
+ CREATE TABLE Employee_DR
+    ( 
+    [ID] INT identity(1,1), 
+    [FirstName] Varchar(100), 
+    [LastName] Varchar(100), 
+    [Country] Varchar(100), 
+    )
 	 
-	 
+	 select * from Employee_DR
+	 Insert into Employee_DR ([FirstName],[LastName],[Country] )
+	 values('Raj','Gupta','India'),
+                                ('Raj','Gupta','India'),
+                                ('Mohan','Kumar','USA'),
+                                ('James','Barry','UK'),
+                                ('James','Barry','UK'),
+                                ('James','Barry','UK'),
+								('Rajesh','Singh','India')
+
+
+--1. SQL delete duplicate Rows using Group By and having clause
+
+select FirstName,
+LastName,
+Country,
+count(*) as CNT
+from Employee_DR
+group by FirstName,
+LastName,
+Country
+
+Having count(*)>1
+
+Delete from Employee_DR
+where id not in(
+select  max(ID)
+from Employee_DR
+group by FirstName,
+LastName,
+Country
+)
+
+
+--2. SQL delete duplicate Rows using Common Table Expressions (CTE)
+select * from Employee_DR
+
+WITH CTE (  
+FirstName,
+LastName,
+Country,
+DuplicateCount)
+as
+(
+select 
+FirstName,
+LastName,
+Country,
+ROW_NUMBER() over
+(Partition by FirstName,
+LastName,
+Country  order by id) as DuplicateCount
+ from 
+Employee_DR
+)
+
+delete from CTE 
+where DuplicateCount>1;
+
+--3. RANK function to SQL delete duplicate rows
+
+
+delete E from Employee_DR E
+Inner JOIN
+(select *,
+Rank() over (Partition by 
+firstname,
+lastname,
+country order by id) 'rank'
+
+from Employee_DR) T
+on e.ID=t.ID
+where t.rank>1
